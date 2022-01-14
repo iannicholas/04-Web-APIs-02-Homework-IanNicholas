@@ -1,14 +1,17 @@
-var displayQuestions = document.querySelector("#questions");
+var startScreen = document.querySelector("#start-screen");
 var timerElement = document.querySelector("#timer-count");
 var startButton = document.querySelector("#start-quiz");
-
-
+var answer = document.querySelector(".answer");
+var h2 = document.querySelector(".h2");
+var questionArea = document.querySelector("#questions");
+var scoreCounter = document.querySelector("#score-counter");
 
 var questions = "";
 var isDone = false;
 var timer;
 var timerCount;
 var choice = "";
+var score = "";
 // var index = 0;
 
 var questions = [
@@ -58,7 +61,6 @@ var questions = [
 function startQuiz() {
     isDone = "false";
     timerCount = 60;   
-    // renderChoices();
     startTimer();
     console.log("Start button was clicked");
     console.log(questions);
@@ -82,16 +84,18 @@ function getQuestions() {
   if (timerCount > 0) {
     
       for (var i = 0; i < questions.length; i++) {
-        
-        var h3 = document.creatElement("h3");
-        var node = document.createTextNode(questions[i].question);
-        h3.appendchild(node);
+        startScreen.classList.add("hide");
+        document.getElementById("#questions-element").classList.remove("hide");
 
-        // displayQuestions.creatElement.innerHTML = "<h3>" + questions[i].question + "</h3><br>";
-        // displayQuestions.innerHTML += "<button class=button-style id=choice1>" + questions[i].a + "</button><br>";
-        // displayQuestions.innerHTML += "<button class=button-style id=choice2>" + questions[i].b + "</button><br>";
-        // displayQuestions.innerHTML += "<button class=button-style id=choice3>" + questions[i].c + "</button><br>";
-        // displayQuestions.innerHTML += "<button class=button-style id=choice4>" + questions[i].d + "</button><br>";
+
+        
+        //h2.innerHTML = (questions[i].question);
+
+        h2.innerHTML = questions[i].question;
+        displayQuestions.innerHTML += "<button class=button-style id=choice1>" + questions[i].a + "</button><br>";
+        displayQuestions.innerHTML += "<button class=button-style id=choice2>" + questions[i].b + "</button><br>";
+        displayQuestions.innerHTML += "<button class=button-style id=choice3>" + questions[i].c + "</button><br>";
+        displayQuestions.innerHTML += "<button class=button-style id=choice4>" + questions[i].d + "</button><br>";
         
     }
     checkAnswer();
@@ -101,62 +105,32 @@ function getQuestions() {
 
 // check answer 
 function checkAnswer() {
-    // choice = document.getElementById("choice").onclick.value;
 console.log("made it here");
 console.log(choice);
 if (choice === questions.answer) {
-    alert.length("correct");
-    getQuestions();
+    answer = "Correct";
+    score + 10; 
+} else {
+    timer - 5;
+    answer = "Wrong";
 }
+i++;
+getQuestions();
 }
- 
-
-
 
 // Updates win count on screen and sets win count to client storage
-// function setWins() {
-//   win.textContent = winCounter;
-//   localStorage.setItem("winCount", winCounter);
-// }
+function setScore() {
+  score.textContent = scoreCounter;
+  localStorage.setItem("scoreCount", scoreCounter);
+}
 
-// // Updates lose count on screen and sets lose count to client storage
-// function setLosses() {
-//   lose.textContent = loseCounter;
-//   localStorage.setItem("loseCount", loseCounter);
-// }
-
-// // These functions are used by init
-// function getWins() {
-//   // Get stored value from client storage, if it exists
-//   var storedWins = localStorage.getItem("winCount");
-//   // If stored value doesn't exist, set counter to 0
-//   if (storedWins === null) {
-//     winCounter = 0;
-//   } else {
-//     // If a value is retrieved from client storage set the winCounter to that value
-//     winCounter = storedWins;
-//   }
-//   //Render win count to page
-//   win.textContent = winCounter;
-// }
-
-// function getlosses() {
-//   var storedLosses = localStorage.getItem("loseCount");
-//   if (storedLosses === null) {
-//     loseCounter = 0;
-//   } else {
-//     loseCounter = storedLosses;
-//   }
-//   lose.textContent = loseCounter;
-// }
-
-// function checkWin() {
-//   // If the word equals the blankLetters array when converted to string, set isWin to true
-//   if (chosenWord === blanksLetters.join("")) {
-//     // This value is used in the timer function to test if win condition is met
-//     isWin = true;
-//   }
-// }
+function getScore() {
+  var storedCount = localStorage.getItem("scoreCount");
+  if (storedCount === null) {
+    scoreCounter = 0;
+  } 
+  score.textContent = scoreCounter;
+}
 
 // Attach event listener to start button to call startQuiz function on click
 startButton.addEventListener("click", startQuiz);
