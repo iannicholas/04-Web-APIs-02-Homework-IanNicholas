@@ -5,6 +5,10 @@ var answer = document.querySelector(".answer");
 var h2 = document.querySelector(".h2");
 var questionArea = document.querySelector("#questions");
 var scoreCounter = document.querySelector("#score-counter");
+var option1 = document.querySelector("#choice1");
+var option2 = document.querySelector("#choice2");
+var option3 = document.querySelector("#choice3");
+var option4 = document.querySelector("#choice4");
 
 var questions = "";
 var isDone = false;
@@ -80,27 +84,17 @@ function startTimer() {
 
 // get questions on screen
 function getQuestions() {
-  
-  if (timerCount > 0) {
-    
+  if (timerCount > 0) { 
       for (var i = 0; i < questions.length; i++) {
         startScreen.classList.add("hide");
-        document.getElementById("#questions-element").classList.remove("hide");
-
-
-        
-        //h2.innerHTML = (questions[i].question);
-
         h2.innerHTML = questions[i].question;
-        displayQuestions.innerHTML += "<button class=button-style id=choice1>" + questions[i].a + "</button><br>";
-        displayQuestions.innerHTML += "<button class=button-style id=choice2>" + questions[i].b + "</button><br>";
-        displayQuestions.innerHTML += "<button class=button-style id=choice3>" + questions[i].c + "</button><br>";
-        displayQuestions.innerHTML += "<button class=button-style id=choice4>" + questions[i].d + "</button><br>";
-        
-    }
-    checkAnswer();
- }
- 
+        option1.innerHTML = "<button class=button-style id=choice1>" + questions[i].a + "</button><br>";
+        option2.innerHTML = "<button class=button-style id=choice2>" + questions[i].b + "</button><br>";
+        option3.innerHTML = "<button class=button-style id=choice3>" + questions[i].c + "</button><br>";
+        option4.innerHTML = "<button class=button-style id=choice4>" + questions[i].d + "</button><br>";  
+      }
+  }
+  checkAnswer();
 } 
 
 // check answer 
@@ -118,12 +112,13 @@ i++;
 getQuestions();
 }
 
-// Updates win count on screen and sets win count to client storage
+// sets score count to client storage
 function setScore() {
   score.textContent = scoreCounter;
   localStorage.setItem("scoreCount", scoreCounter);
 }
 
+// updates score count on screen
 function getScore() {
   var storedCount = localStorage.getItem("scoreCount");
   if (storedCount === null) {
